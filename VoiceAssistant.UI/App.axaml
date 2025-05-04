@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:VoiceAssistant.UI.Converters"
+             x:Class="VoiceAssistant.UI.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+    </Application.Resources>
+    
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+</Application>

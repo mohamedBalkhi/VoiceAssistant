@@ -1,0 +1,170 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VoiceAssistant.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="using:VoiceAssistant.UI.Converters"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="700"
+        x:Class="VoiceAssistant.UI.Views.MainView"
+        x:CompileBindings="False"
+        x:DataType="vm:MainWindowViewModel">
+
+    <UserControl.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </UserControl.Resources>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#007acc" Padding="20,15">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <TextBlock Text="🎙️" FontSize="26" VerticalAlignment="Center" />
+                    <TextBlock Text="Voice Assistant" FontSize="22" Foreground="White" 
+                               FontWeight="SemiBold" VerticalAlignment="Center" />
+                </StackPanel>
+                
+                <!-- Status indicator -->
+                <Border Grid.Column="1" 
+                        Background="{Binding IsListening, Converter={StaticResource BoolToColorConverter}}"
+                        Width="15" Height="15" CornerRadius="10" />
+            </Grid>
+        </Border>
+
+        <!-- Main content -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*" Margin="20">
+            <!-- Status message and wake word settings -->
+            <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,20">
+                <!-- Status message -->
+                <Border Background="White" 
+                        BorderBrush="#e0e0e0" 
+                        BorderThickness="1" 
+                        CornerRadius="4"
+                        Padding="15,10">
+                    <TextBlock Text="{Binding StatusMessage}" 
+                               FontSize="14" 
+                               Foreground="#333" />
+                </Border>
+                
+                <!-- Wake word settings -->
+                <Border Background="White" 
+                        BorderBrush="#e0e0e0" 
+                        BorderThickness="1" 
+                        CornerRadius="4"
+                        Padding="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="5">
+                            <TextBlock Text="Wake Word Mode" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="#333" />
+                            <TextBlock Text="When enabled, assistant will only respond to 'Hey Voicy'" 
+                                       FontSize="12" 
+                                       Foreground="#666"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Column="1" 
+                                     IsEnabled="false"
+                                     IsChecked="{Binding UseWakeWord}"
+                                     OnContent="On"
+                                     OffContent="Off" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+            
+            <!-- Activity log -->
+            <Border Grid.Row="1" 
+                    Background="White" 
+                    BorderBrush="#e0e0e0" 
+                    BorderThickness="1" 
+                    CornerRadius="4">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0" 
+                               Text="Activity Log" 
+                               FontWeight="SemiBold" 
+                               Margin="15,10" 
+                               Foreground="#555" />
+                    
+                    <ItemsControl Grid.Row="1" 
+                             ItemsSource="{Binding ActivityLog}"
+                             Background="Transparent" 
+                             BorderThickness="0" 
+                             Margin="0,0,0,0"
+                             Padding="5,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="10,8" 
+                                        Background="#f9f9f9" 
+                                        CornerRadius="4" 
+                                        Margin="0,2">
+                                    <TextBlock Text="{Binding}" 
+                                               TextWrapping="Wrap" 
+                                               FontSize="12" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Control panel -->
+        <Border Grid.Row="2" 
+                Background="White" 
+                BorderBrush="#e0e0e0" 
+                BorderThickness="0,1,0,0" 
+                Padding="20">
+            <Grid RowDefinitions="Auto,Auto">
+                <!-- Buttons -->
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            Spacing="15" 
+                            Margin="0,0,0,15">
+                    <Button Command="{Binding StartListeningCommand}" 
+                            IsEnabled="{Binding !IsListening}"
+                            Classes="accent"
+                            Padding="15,10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="🎤" FontSize="16" />
+                            <TextBlock Text="Start Listening" />
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button Command="{Binding StopListeningCommand}" 
+                            IsEnabled="{Binding IsListening, Mode=OneWay}"
+                            Name="StopButton"
+                            Padding="15,10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="⏹️" FontSize="16" />
+                            <TextBlock Text="Stop" />
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button Command="{Binding MinimizeToTrayCommand}" 
+                            Padding="15,10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="⬇️" FontSize="16" />
+                            <TextBlock Text="Minimize to Tray" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                
+                <!-- Text input -->
+                <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                    <TextBox Grid.Column="0" 
+                             Watermark="Type a command..." 
+                             Text="{Binding TextCommand}"
+                             Margin="0,0,10,0" />
+                    
+                    <Button Grid.Column="1" 
+                            Command="{Binding SendTextCommandCommand}" 
+                            Content="Send" 
+                            Padding="15,10" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl> 

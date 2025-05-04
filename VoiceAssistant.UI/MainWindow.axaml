@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:VoiceAssistant.UI.Views"
+        xmlns:vm="using:VoiceAssistant.UI.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VoiceAssistant.UI.MainWindow"
+        Title="Voice Assistant"
+        Width="500" Height="700"
+        Icon="/Assets/app-icon.png">
+    
+    <views:MainView />
+</Window>
