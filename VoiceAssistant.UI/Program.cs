@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using VoiceAssistant.Application;
 using VoiceAssistant.Domain;
 using VoiceAssistant.Infrastructure;
@@ -86,8 +87,15 @@ class Program
         services.AddVoiceAssistantApplication();
         services.AddCommandHandlers();
         
-        // Add platform-specific services (using macOS services for now)
-        services.AddMacOSPlatformServices();
+        // Add platform-specific services
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            services.AddWindowsPlatformServices();
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            services.AddMacOSPlatformServices();
+        }
         
         // Check if we should use real Azure services or mock services
         bool useMockServices = false; // Set to true to use mock services until valid API keys are configured

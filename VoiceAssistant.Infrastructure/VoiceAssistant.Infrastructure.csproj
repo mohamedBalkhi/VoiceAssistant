@@ -5,6 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+    <!-- Required for SystemInformation.VirtualScreen in WindowsScreenshotProvider -->
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.AI.Language.Conversations" Version="1.1.0" />
@@ -14,6 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.4" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.5" />
+    <PackageReference Include="System.Windows.Extensions" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
