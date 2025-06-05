@@ -8,6 +8,8 @@ A modular voice assistant built with C#, Avalonia UI, and Azure AI services(Repl
 - Natural language processing with Azure Language Understanding
 - Text-to-speech capabilities
 - Cross-platform UI with Avalonia
+- Runs on macOS and Windows with platform-specific services
+- Built-in commands for screenshots, folder opening and time queries
 - Clean architecture design
 
 ## Azure Language Service Setup
@@ -100,3 +102,11 @@ For example, to implement a different speech recognition service:
 ```bash
 dotnet run --project VoiceAssistant.UI
 ``` 
+
+## Running Tests
+
+Run unit tests with:
+
+```bash
+dotnet test
+```
