@@ -70,10 +70,18 @@ public class AzureSpeechRecognizer(string speechKey, string speechRegion) : IRec
         if (cancellation.Reason == CancellationReason.Error)
         {
             // Log the error details properly
-            // ErrorUri is not directly available here, usually logged internally by SDK if needed.
             Console.Error.WriteLine($"CANCELED: ErrorCode={cancellation.ErrorCode}, ErrorDetails={cancellation.ErrorDetails}");
-            message += $", ErrorCode={cancellation.ErrorCode}. Check logs for details."; // Corrected typo here
+
+            if (cancellation.ErrorCode == CancellationErrorCode.AuthenticationFailure)
+            {
+                message += ", Authentication failed. Please verify your API key and region.";
+            }
+            else
+            {
+                message += $", ErrorCode={cancellation.ErrorCode}. Check logs for details.";
+            }
         }
+
         return message;
     }
-} 
+}
