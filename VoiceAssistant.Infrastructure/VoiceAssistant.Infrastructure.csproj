@@ -6,7 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <TargetFramework>net9.0-windows</TargetFramework>
     <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+    <!-- Required for SystemInformation.VirtualScreen in WindowsScreenshotProvider -->
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
