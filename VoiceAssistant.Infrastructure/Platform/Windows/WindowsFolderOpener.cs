@@ -27,10 +27,7 @@ public class WindowsFolderOpener : IFolderOpener
         {
             FileName = "explorer.exe",
             Arguments = $"\"{folderPath}\"",
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true
+            UseShellExecute = true
         };
 
         try
@@ -39,19 +36,6 @@ public class WindowsFolderOpener : IFolderOpener
             if (process == null)
             {
                 return (false, "Failed to start process to open folder.");
-            }
-
-            using var registration = token.Register(() =>
-            {
-                try { process.Kill(); } catch { }
-            });
-
-            string error = await process.StandardError.ReadToEndAsync();
-            await process.WaitForExitAsync(token);
-
-            if (process.ExitCode != 0 || !string.IsNullOrEmpty(error))
-            {
-                return (false, $"Failed to open folder. Error: {error?.Trim()}");
             }
 
             return (true, null);
