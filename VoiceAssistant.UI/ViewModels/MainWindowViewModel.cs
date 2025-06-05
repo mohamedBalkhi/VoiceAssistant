@@ -2,6 +2,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Avalonia;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using Microsoft.Extensions.Logging;
 using VoiceAssistant.Application;
@@ -19,6 +21,7 @@ public class MainWindowViewModel : ViewModelBase
     private string _statusMessage = "Ready";
     private bool _isBusy;
     private bool _useWakeWord = false;
+    private bool _isDarkMode = false;
 
     public event EventHandler<bool>? MinimizeToTrayRequested;
 
@@ -155,6 +158,22 @@ public class MainWindowViewModel : ViewModelBase
                 string message = value ? "Wake word mode enabled. Using 'Hey Voicy' as trigger." : "Wake word mode disabled.";
                 StatusMessage = message;
                 _logger.LogInformation(message);
+            }
+        }
+    }
+
+    public bool IsDarkMode
+    {
+        get => _isDarkMode;
+        set
+        {
+            if (_isDarkMode != value)
+            {
+                _isDarkMode = value;
+                OnPropertyChanged();
+
+                // Update application theme
+                Avalonia.Application.Current!.RequestedThemeVariant = value ? ThemeVariant.Dark : ThemeVariant.Light;
             }
         }
     }

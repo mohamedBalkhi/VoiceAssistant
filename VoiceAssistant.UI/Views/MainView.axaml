@@ -72,6 +72,30 @@
                                      OffContent="Off" />
                     </Grid>
                 </Border>
+
+                <!-- Theme settings -->
+                <Border Background="White"
+                        BorderBrush="#e0e0e0"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="15"
+                        Margin="0,10,0,0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="5">
+                            <TextBlock Text="Dark Mode"
+                                       FontWeight="SemiBold"
+                                       Foreground="#333" />
+                            <TextBlock Text="Toggle dark or light theme"
+                                       FontSize="12"
+                                       Foreground="#666"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Column="1"
+                                     IsChecked="{Binding IsDarkMode}"
+                                     OnContent="On"
+                                     OffContent="Off" />
+                    </Grid>
+                </Border>
             </StackPanel>
             
             <!-- Activity log -->
