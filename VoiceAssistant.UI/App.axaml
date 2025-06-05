@@ -8,8 +8,9 @@
     <Application.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
     </Application.Resources>
-    
+
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Voice Assistant/Styles/Modern.axaml" />
     </Application.Styles>
 </Application>

@@ -1,0 +1,20 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <Color x:Key="AccentColor">#6200EE</Color>
+        <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}"/>
+        <Color x:Key="CardBackgroundColor">#ffffff</Color>
+        <SolidColorBrush x:Key="CardBackground" Color="{DynamicResource CardBackgroundColor}"/>
+        <Color x:Key="CardBorderColor">#e0e0e0</Color>
+        <SolidColorBrush x:Key="CardBorderBrush" Color="{DynamicResource CardBorderColor}"/>
+    </Styles.Resources>
+
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+</Styles>

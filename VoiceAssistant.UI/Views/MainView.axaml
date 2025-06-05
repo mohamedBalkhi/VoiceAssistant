@@ -19,7 +19,7 @@
 
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
-        <Border Grid.Row="0" Background="#007acc" Padding="20,15">
+        <Border Grid.Row="0" Background="{DynamicResource AccentBrush}" Padding="20,15">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
                     <TextBlock Text="🎙️" FontSize="26" VerticalAlignment="Center" />
@@ -39,22 +39,14 @@
             <!-- Status message and wake word settings -->
             <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,20">
                 <!-- Status message -->
-                <Border Background="White" 
-                        BorderBrush="#e0e0e0" 
-                        BorderThickness="1" 
-                        CornerRadius="4"
-                        Padding="15,10">
+                <Border Classes="card">
                     <TextBlock Text="{Binding StatusMessage}" 
                                FontSize="14" 
                                Foreground="#333" />
                 </Border>
-                
+
                 <!-- Wake word settings -->
-                <Border Background="White" 
-                        BorderBrush="#e0e0e0" 
-                        BorderThickness="1" 
-                        CornerRadius="4"
-                        Padding="15">
+                <Border Classes="card">
                     <Grid ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" Spacing="5">
                             <TextBlock Text="Wake Word Mode" 
@@ -72,14 +64,29 @@
                                      OffContent="Off" />
                     </Grid>
                 </Border>
+
+                <!-- Theme settings -->
+                <Border Classes="card" Margin="0,10,0,0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="5">
+                            <TextBlock Text="Dark Mode"
+                                       FontWeight="SemiBold"
+                                       Foreground="#333" />
+                            <TextBlock Text="Toggle dark or light theme"
+                                       FontSize="12"
+                                       Foreground="#666"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Column="1"
+                                     IsChecked="{Binding IsDarkMode}"
+                                     OnContent="On"
+                                     OffContent="Off" />
+                    </Grid>
+                </Border>
             </StackPanel>
             
             <!-- Activity log -->
-            <Border Grid.Row="1" 
-                    Background="White" 
-                    BorderBrush="#e0e0e0" 
-                    BorderThickness="1" 
-                    CornerRadius="4">
+            <Border Grid.Row="1" Classes="card">
                 <Grid RowDefinitions="Auto,*">
                     <TextBlock Grid.Row="0" 
                                Text="Activity Log" 
@@ -111,10 +118,9 @@
         </Grid>
 
         <!-- Control panel -->
-        <Border Grid.Row="2" 
-                Background="White" 
-                BorderBrush="#e0e0e0" 
-                BorderThickness="0,1,0,0" 
+        <Border Grid.Row="2"
+                Classes="card"
+                BorderThickness="0,1,0,0"
                 Padding="20">
             <Grid RowDefinitions="Auto,Auto">
                 <!-- Buttons -->
