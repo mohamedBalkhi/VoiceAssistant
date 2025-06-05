@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using VoiceAssistant.Domain;
 using VoiceAssistant.Infrastructure.Platform.MacOS;
+#if WINDOWS
+using VoiceAssistant.Infrastructure.Platform.Windows;
+#endif
 
 namespace VoiceAssistant.Infrastructure;
 
@@ -80,7 +83,24 @@ public static class AzureServiceCollectionExtensions
         // Register macOS-specific services
         services.AddSingleton<Domain.Platform.IScreenshotProvider, MacOSScreenshotProvider>();
         services.AddSingleton<Domain.Platform.IFolderOpener, MacOSFolderOpener>();
-        
+
         return services;
     }
-} 
+
+    /// <summary>
+    /// Registers Windows-specific platform services.
+    /// </summary>
+#if WINDOWS
+    public static IServiceCollection AddWindowsPlatformServices(this IServiceCollection services)
+    {
+        services.AddSingleton<Domain.Platform.IScreenshotProvider, WindowsScreenshotProvider>();
+        services.AddSingleton<Domain.Platform.IFolderOpener, WindowsFolderOpener>();
+
+        return services;
+    }
+#else
+    public static IServiceCollection AddWindowsPlatformServices(this IServiceCollection services) => services;
+#endif
+}
+
+
